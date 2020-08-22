@@ -16,7 +16,7 @@
           style="width: 20px; height: 20px"
           :class="`bg-${ item.status }`"
         />
-        <strong class="mr-auto">六角實戰班</strong>
+        <strong class="mr-auto">通知提示</strong>
         <small>現在</small>
         <button
           type="button"
@@ -57,12 +57,12 @@ export default {
       const timestamp = Math.floor(new Date() / 1000);
       // 每個 Toast 獨有的時間戳，用以分辨是哪一個 Toast（有點像 id 的概念）
       // Math.floor() 函式會回傳小於等於所給數字的最大整數
-      this.messages.push = {
-        // 用 push 的方式 將物件傳送
+      // 用 push 的方式 將物件傳送
+      this.messages.push({
         message,
         status,
         timestamp,
-      };
+      });
       // 觸發 5 秒後移除的方法
       this.removeMessageForSec(timestamp);
     },

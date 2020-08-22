@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <!-- toast 元件 -->
     <toasts />
     <loading :active.sync="isLoading"></loading>
     <router-view/>

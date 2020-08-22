@@ -164,6 +164,15 @@ export default {
           this.isLoading = false;
           $('#couponModal').modal('hide');
           console.log('更新優惠券 成功', res);
+          if (httpMethod === 'post') {
+            this.$bus.$emit('message:push',
+              '新增優惠券 成功!!',
+              'success');
+          } else {
+            this.$bus.$emit('message:push',
+              '更新優惠券 成功!!',
+              'success');
+          }
 
           // 成功發送後 再重新執行一次 getCoupons 取所有優惠券列表
           // 更新畫面
@@ -173,6 +182,9 @@ export default {
           this.isLoading = false;
           $('#couponModal').modal('hide');
           console.log('更新優惠券 失敗', error.response);
+          this.$bus.$emit('message:push',
+            '更新/新增 優惠券 失敗',
+            'danger');
         });
     },
     // 切換是否啟用
@@ -180,13 +192,17 @@ export default {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_APIPATH}/${process.env.VUE_APP_UUID}/admin/ec/coupon/${item.id}`;
       this.$http.patch(api, item)
-        .then((res) => {
+        .then(() => {
           this.isLoading = false;
-          console.log('更新優惠券 成功', res);
+          this.$bus.$emit('message:push',
+            '切換優惠券 成功!!',
+            'success');
         })
-        .catch((error) => {
+        .catch(() => {
           this.isLoading = false;
-          console.log('更新優惠券 失敗', error.response);
+          this.$bus.$emit('message:push',
+            '切換優惠券 失敗!!',
+            'success');
         });
     },
     // 刪除優惠券
@@ -198,6 +214,9 @@ export default {
           this.isLoading = false;
           $('#deleCouponModal').modal('hide');
           console.log('刪除優惠券 成功', res);
+          this.$bus.$emit('message:push',
+            '刪除優惠券 成功!!',
+            'success');
           // 刪除完 要再跑一次 getCoupons 更新畫面
           this.getCoupons();
         })
@@ -205,6 +224,9 @@ export default {
           this.isLoading = false;
           $('#deleCouponModal').modal('hide');
           console.log('刪除優惠券 失敗', error.response);
+          this.$bus.$emit('message:push',
+            '刪除優惠券 失敗!!',
+            'success');
         });
     },
   },
